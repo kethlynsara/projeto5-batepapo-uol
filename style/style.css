@@ -1,0 +1,101 @@
+/* configurações gerais */
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: #F3F3F3;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+/* barra fixa do topo */
+header {
+    height: 80px;
+    width: 100%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+    background-color: #FFF;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 22px;
+    padding-top: 16px;;
+    padding-bottom: 11px;
+    padding-right: 22.41px;
+    position: fixed;
+}
+
+.logo img {
+    width: 75px;
+    height: 53px;
+}
+
+ion-icon {
+    font-size: 40px;
+    /* width: 42.19px;
+    height: 30.94px; */
+    padding-bottom: 24.03px;
+    /* padding-top: 5px; */
+}
+
+
+/* barra final fixa */
+footer {
+    width: 100%;
+    height: 80px;
+    background-color: #FFF;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    bottom: 0;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
+}
+
+footer p {
+    font-style: italic;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    padding-left: 17px;
+    padding-bottom: 25px;
+    padding-top: 30px;
+}
+
+.ion-icon {
+    font-size: 30px;
+    padding-top: 27px;
+    padding-right: 18px;
+    padding-bottom: 27px;
+}
+
+/* cores das mensagens */
+.msg-status {
+    background-color: #DCDCDC;
+    padding: 15px;
+    margin-top: 5px;
+    border-radius: 2px;
+    
+}
+.msg-reservadas {
+    background-color: #FFDEDE;
+    padding: 15px;
+    margin-top: 5px;
+    border-radius: 2px;
+}
+.msg-normal {
+    background-color: #FFF;
+    padding: 15px;
+    margin-top: 5px;
+    border-radius: 2px;
+}
+
+.margem {
+    height: 106px;
+    background-color: #F3F3F3;
+}
+
+main p {
+    font-size: 14px;
+}
+
+main span {
+    color: #AAAAAA;
+}
