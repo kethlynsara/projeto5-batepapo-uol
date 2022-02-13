@@ -1,6 +1,8 @@
 let nome = {
     name: " "
 }
+let atualizarStatusUser = null;
+let atualizarMsg = null;
 
 // pedir nome do usuario e enviar ao servidor
 function pedirNome() {
@@ -8,19 +10,17 @@ function pedirNome() {
         name: prompt("Digite o seu nome")
     }
 
-    const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", nome);
-    promise.then(enviarAoServidor);
-    promise.catch(tratarErros);
+    const nomeUser = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", nome);
+    nomeUser.then(enviarAoServidor);
+    nomeUser.catch(tratarErros);
 }
 pedirNome();
 
 function enviarAoServidor(resposta) {
-    console.log("yes");
-    console.log(resposta);
+    atualizar();
 }
 
 function tratarErros(erro) {
-    console.log(erro.response);
     let statusCode = erro.response.status;
     if (statusCode !== 200 ) {
         pedirNome();
@@ -29,35 +29,75 @@ function tratarErros(erro) {
 
 //avisar o servidor se o usuario esta online
 function userOnline() {
-    const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/status", nome);
-    promise.then(setInterval);
+    const status = axios.post("https://mock-api.driven.com.br/api/v4/uol/status", nome);
+    status.then();
 }
-setInterval(userOnline, 5000);
+
+
 
 //buscar mensagens do servidor
-const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
-promise.then(buscarTxt);
+function pegarMsg() {
+    const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
+    promise.then(mostrarMsg);
+}
 
-function buscarTxt(resposta) {
-    let mensagens = resposta.data;
-    console.log(mensagens);
+function mostrarMsg(resposta) {
     let main = document.querySelector("main");
-    for (let i = 0; i < mensagens.length; i++) {
-        if (mensagens[i].type === "private_message") {
-            if (mensagens[i].to === nome) {
-                main.innerHTML += `<div class="msg-reservadas">
-                <span>(${mensagens[i].time})</span> <strong>${ mensagens[i].from }</strong> reservadamente para <strong>${nome}</strong> : ${mensagens[i].text} </div>`;
+    main.innerHTML = "";
+    let ultima = "";
+    
+    for (let i = 0; i < resposta.data.length; i++) {
+        if (i == resposta.data.length - 1) {
+            ultima = "ultima";
+        }
+
+        if (resposta.data[i].type === "private_message") {
+            if (resposta.data[i].to === nome.name) { //verifica se a mensagem reservada eh direcionada para o user
+                main.innerHTML += `<div class="msg-reservadas ${ultima}" data-identifier="message">
+                <span>(${resposta.data[i].time})</span> <strong>${ resposta.data[i].from }</strong> reservadamente para <strong>${nome}</strong> : ${resposta.data[i].text} </div>`;
             }
-       } else if (mensagens[i].type === "status") {
-        main.innerHTML += `<div class="msg-status">
-        <span>(${mensagens[i].time})</span>  <strong>${ mensagens[i].from }</strong>  ${mensagens[i].text} </div>`;
+       } else if (resposta.data[i].type === "status") {
+        main.innerHTML += `<div class="msg-status ${ultima}" data-identifier="message">
+        <span>(${resposta.data[i].time})</span>  <strong>${ resposta.data[i].from }</strong>  ${resposta.data[i].text} </div>`;
        }
         else {
-            main.innerHTML += `<div class="msg-normal">
-        <span>(${mensagens[i].time})</span> <strong>${ mensagens[i].from }</strong> para Todos: ${mensagens[i].text} </div>`;
+            main.innerHTML += `<div class="msg-normal ${ultima}" data-identifier="message">
+        <span>(${resposta.data[i].time})</span> <strong>${ resposta.data[i].from }</strong> para Todos: ${resposta.data[i].text} </div>`;
         }
-    }
+    } 
     
+    //SCROLL
+    const classeUltima = document.querySelector(".ultima");
+    classeUltima.scrollIntoView();
 }
+
+function atualizar() {
+    atualizarStatusUser = setInterval(userOnline, 5000);
+    atualizarMsg = setInterval(pegarMsg, 3000);
+
+}
+
+//enviar msg do user
+function mandarMsgUser() {
+    let texto = document.querySelector("footer input").value;
+    const enviar = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", {
+        from: nome.name,
+        to: "Todos",
+        text: texto,
+        type: "message" 
+    });
+    enviar.then(enviarMsg);
+}
+
+//desaparecer a msg da tela após enviar
+function enviarMsg(resposta) {
+    const footer = document.querySelector("footer");
+    footer.innerHTML = `
+        <input type="text" placeholder="Escreva aqui..." />
+        <ion-icon onclick="mandarMsgUser()" class="ion-icon" name="paper-plane-outline" data-identifier="send-message"></ion-icon>  
+    `;
+}
+
+
 
 

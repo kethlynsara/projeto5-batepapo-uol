@@ -30,10 +30,7 @@ header {
 
 ion-icon {
     font-size: 40px;
-    /* width: 42.19px;
-    height: 30.94px; */
     padding-bottom: 24.03px;
-    /* padding-top: 5px; */
 }
 
 
@@ -49,21 +46,30 @@ footer {
     box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
 }
 
-footer p {
+
+input {
     font-style: italic;
     font-weight: normal;
     font-size: 18px;
     line-height: 21px;
+    border: none;
+    width: 100%;
     padding-left: 17px;
-    padding-bottom: 25px;
-    padding-top: 30px;
 }
+
+input:focus{
+    outline: none;
+  }
 
 .ion-icon {
     font-size: 30px;
     padding-top: 27px;
     padding-right: 18px;
     padding-bottom: 27px;
+}
+
+footer ion-icon:hover{
+    cursor: pointer;
 }
 
 /* cores das mensagens */
@@ -98,4 +104,10 @@ main p {
 
 main span {
     color: #AAAAAA;
+}
+
+.margem-bottom {
+    height: 82px;
+    background-color: #F3F3F3;
+    margin-top: 5px;
 }
