@@ -1,30 +1,29 @@
 let nome = {
     name: " "
-}
+};
 let atualizarStatusUser = null;
 let atualizarMsg = null;
 
-// pedir nome do usuario e enviar ao servidor
-function pedirNome() {
+function mandarNomeUser() {
+    let nomeEntrada = document.querySelector(".tela-login input").value;
     nome = {
-        name: prompt("Digite o seu nome")
-    }
-
+        name: nomeEntrada
+    };
     const nomeUser = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", nome);
     nomeUser.then(enviarAoServidor);
     nomeUser.catch(tratarErros);
 }
-pedirNome();
 
 function enviarAoServidor(resposta) {
+    let entrarBotao = document.querySelector(".logar");
+    let telaLogin = entrarBotao.parentNode;
+    telaLogin.classList.add("escondido"); 
     atualizar();
 }
 
 function tratarErros(erro) {
-    let statusCode = erro.response.status;
-    if (statusCode !== 200 ) {
-        pedirNome();
-    }
+    const elemento = document.querySelector(".tela-login .input-nome");
+    elemento.innerHTML = `<input type="text" placeholder="Digite outro nome"></input>`;
 }
 
 //avisar o servidor se o usuario esta online
@@ -66,7 +65,7 @@ function mostrarMsg(resposta) {
         }
     } 
     
-    //SCROLL
+    //scroll automático
     const classeUltima = document.querySelector(".ultima");
     classeUltima.scrollIntoView();
 }

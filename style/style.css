@@ -47,7 +47,7 @@ footer {
 }
 
 
-input {
+footer input {
     font-style: italic;
     font-weight: normal;
     font-size: 18px;
@@ -57,7 +57,7 @@ input {
     padding-left: 17px;
 }
 
-input:focus{
+footer input:focus{
     outline: none;
   }
 
@@ -70,6 +70,10 @@ input:focus{
 
 footer ion-icon:hover{
     cursor: pointer;
+}
+/* quebra de linha das mensagens */
+main div {
+    word-break: break-all;
 }
 
 /* cores das mensagens */
@@ -111,3 +115,81 @@ main span {
     background-color: #F3F3F3;
     margin-top: 5px;
 }
+
+/* tela de login */
+.tela-login {
+    z-index: 5;
+    background-color: #FFF;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.tela-login img {
+    width: 130px;
+    height: 92px;
+    top: 0;
+}
+.input-nome {
+    margin-top: 70px;
+    font-size: 18px;
+    font-weight: 400;
+    color: #000000;
+}
+
+.input-nome::placeholder {
+    opacity: 1;
+    color: #000000;
+    font-style: italic;
+}
+
+.input-nome:-ms-input-placeholder {
+    color: #000000;
+    font-style: italic;
+}
+
+.input-nome::-ms-input-placeholder {
+    color: #000000;
+    font-style: italic;
+} 
+
+
+.input-nome input {
+    padding: 15px;
+    width: 261px;
+}
+.logar {
+    margin-top: 20px;
+}
+.logar button {
+    /* border-radius: 9px; */
+    height: 45px;
+    width: 109px;
+    padding: 20px;
+    background-color: #DDDDDD;
+    border-color: #DDDDDD;
+    border-radius: 9px;
+    padding: 15px;
+}
+.logar button p {
+    color: #696969;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 25px;
+   
+}
+.logar button:hover{
+    cursor: pointer;
+}
+.escondido {
+    display: none;
+}
+
